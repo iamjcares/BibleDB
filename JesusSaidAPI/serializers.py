@@ -21,10 +21,17 @@ class ChapterSerializer(serializers.ModelSerializer):
 class VerseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Verse
-        fields = ['chapter', 'verse', 'by_jesus', 'qotd']
+        fields = ['id','chapter', 'verse', 'by_jesus', 'qotd']
         
 class VerseVersionSerializer(serializers.ModelSerializer):
-    verse = VerseSerializer(read_only=True)
+    # book = serializers.CharField(source='verse.chapter.book.name')
+    # chapter = serializers.IntegerField(source='verse.chapter.chapter')
+    # version = serializers.CharField(source='version.name')
+    verse = serializers.IntegerField(source='verse.verse')
+    spoken_by_jesus = serializers.BooleanField(source='verse.by_jesus')
+    qotd = serializers.CharField(source='verse.qotd')
     class Meta:
         model = VerseVersion
-        fields = ['id', 'text', 'verse']
+        fields = ['text', 'verse', 'spoken_by_jesus', 'qotd']
+
+

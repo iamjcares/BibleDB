@@ -16,7 +16,7 @@ class Verse(models.Model):
     chapter = models.ForeignKey(Chapter, on_delete=models.CASCADE)
     verse = models.IntegerField()
     by_jesus = models.BooleanField(default=False)
-    qotd = models.IntegerField()
+    qotd = models.IntegerField(null=True)
 
 class VerseVersion(models.Model):
     verse = models.ForeignKey(Verse, on_delete=models.CASCADE)
