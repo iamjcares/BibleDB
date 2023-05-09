@@ -9,7 +9,6 @@ djangorestframework = "*"
 djoser = "*"
 mysqlclient = "*"
 django-debug-toolbar = "*"
-install = "*"
 django-cors-headers = "*"
 gunicorn = "*"
 
