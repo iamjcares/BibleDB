@@ -11,6 +11,7 @@ mysqlclient = "*"
 django-debug-toolbar = "*"
 django-cors-headers = "*"
 gunicorn = "*"
+whitenoise = "*"
 
 [dev-packages]
 
