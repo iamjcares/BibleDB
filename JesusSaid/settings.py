@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'JesusSaidAPI',
     'rest_framework',
     'djoser',
-    'debug_toolbar',
+    # 'debug_toolbar',
+    'corsheaders',
+    'frontend'
     
     
 ]
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'JesusSaid.urls'
@@ -131,4 +134,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 INTERNAL_IPS = [
     '127.0.0.1'
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5174", # For dev version of frontend. Prod will be exported and served here. 
 ]

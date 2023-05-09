@@ -34,7 +34,8 @@ with open(csv_filename, 'r', encoding='utf8') as csvfile:
         book = row['Book'].lower()
         chapter = int(row['Chapter'])
         verse_number = int(row['Verse'])
-        spoken_by_jesus = row['\ufeffTRUE'] == 'X'
+        # spoken_by_jesus = row['\ufeffTRUE'] == 'X'
+        spoken_by_jesus = row['TRUE'] == 'X'
         quote_of_the_day = row['QOTD'] if row['QOTD'] is not None and row['QOTD'] != "" else 'NULL'
         
 
