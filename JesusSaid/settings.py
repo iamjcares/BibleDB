@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-h+b7(qh311a9(wl3(p$+hx4-2!z66)tul$@v#%mms6$*+o(@z9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['bibledbapp.herokuapp.com']
 
 
 # Application definition
@@ -143,5 +143,6 @@ INTERNAL_IPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    'https://bibledbapp.herokuapp.com',
     "http://localhost:5174", # For dev version of frontend. Prod will be exported and served here. 
 ]
