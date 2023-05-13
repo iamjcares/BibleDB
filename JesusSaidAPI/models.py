@@ -3,9 +3,13 @@ from django.db import models
 
 class Book(models.Model):
     name = models.CharField(max_length=255)
+    position = models.IntegerField()
     
     def __str__(self) -> str:
         return self.name.title()
+    
+    class Meta:
+        ordering = ['position']
 
 class Version(models.Model):
     name = models.CharField(max_length=255)

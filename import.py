@@ -20,6 +20,20 @@ version_names = {
     'web': 'World English Bible',
     'ylt': "Young's Literal Translation",
 }
+bible_books = ["Genesis", "Exodus", "Leviticus", "Numbers", "Deuteronomy", "Joshua", 
+               "Judges", "Ruth", "1 Samuel", "2 Samuel", "1 Kings", "2 Kings", 
+               "1 Chronicles", "2 Chronicles", "Ezra", "Nehemiah", "Esther", "Job", 
+               "Psalm", "Proverbs", "Ecclesiastes", "Song of Solomon", "Isaiah", 
+               "Jeremiah", "Lamentations", "Ezekiel", "Daniel", "Hosea", "Joel", 
+               "Amos", "Obadiah", "Jonah", "Micah", "Nahum", "Habakkuk", "Zephaniah", 
+               "Haggai", "Zechariah", "Malachi", "Matthew", "Mark", "Luke", "John", 
+               "Acts", "Romans", "1 Corinthians", "2 Corinthians", "Galatians", 
+               "Ephesians", "Philippians", "Colossians", "1 Thessalonians", 
+               "2 Thessalonians", "1 Timothy", "2 Timothy", "Titus", "Philemon", 
+               "Hebrews", "James", "1 Peter", "2 Peter", "1 John", "2 John", 
+               "3 John", "Jude", "Revelation"]
+
+bible_dict = {book.lower(): i+1 for i, book in enumerate(bible_books)}
 
 books = set()
 chapters = set()
@@ -34,12 +48,12 @@ with open(csv_filename, 'r', encoding='utf8') as csvfile:
         book = row['Book'].lower()
         chapter = int(row['Chapter'])
         verse_number = int(row['Verse'])
-        # spoken_by_jesus = row['\ufeffTRUE'] == 'X'
-        spoken_by_jesus = row['TRUE'] == 'X'
+        spoken_by_jesus = row['\ufeffTRUE'] == 'X'
+        # spoken_by_jesus = row['TRUE'] == 'X'
         quote_of_the_day = row['QOTD'] if row['QOTD'] is not None and row['QOTD'] != "" else 'NULL'
         
 
-        books.add(book)
+        books.add((bible_dict[book],book))
         chapters.add((book, chapter))
         verses.add((book, chapter, verse_number, spoken_by_jesus, quote_of_the_day))
 
@@ -52,9 +66,9 @@ with open(csv_filename, 'r', encoding='utf8') as csvfile:
 
 
 with open(sql_filename, 'w') as sqlfile:
-    for book in sorted(books):
+    for position, book in sorted(books):
     # for book in books:
-        sqlfile.write(f"INSERT INTO JesusSaidAPI_book (name) VALUES ('{book}');\n")
+        sqlfile.write(f"INSERT INTO JesusSaidAPI_book (name, position) VALUES ('{book}', {position});\n")
 
     for version, slug in sorted(versions):
         version = version.replace("'", "''").replace('"', '""')
