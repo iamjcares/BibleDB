@@ -35,3 +35,15 @@ class VerseVersionSerializer(serializers.ModelSerializer):
         fields = ['text', 'verse', 'spoken_by_jesus', 'qotd']
 
 
+# VerveVersionSerializer used for quote of the day
+class VerseVersionQotdSerializer(serializers.ModelSerializer):
+    book = serializers.CharField(source='verse.chapter.book.name')
+    chapter = serializers.IntegerField(source='verse.chapter.chapter')
+    version = serializers.CharField(source='version.name')
+    verse = serializers.IntegerField(source='verse.verse')
+    spoken_by_jesus = serializers.BooleanField(source='verse.by_jesus')
+    qotd = serializers.CharField(source='verse.qotd')
+    class Meta:
+        model = VerseVersion
+        fields = ['text', 'book', 'chapter', 'version', 'verse', 'spoken_by_jesus', 'qotd']
+

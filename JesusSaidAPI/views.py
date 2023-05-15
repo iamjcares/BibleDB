@@ -6,7 +6,8 @@ from rest_framework.response import Response
 
 from .models import Book, Chapter, QuoteOfTheDay, Verse, VerseVersion, Version
 from .serializers import (BookSerializer, ChapterSerializer,
-                          VerseVersionSerializer, VersionSerializer)
+                          VerseVersionQotdSerializer, VerseVersionSerializer,
+                          VersionSerializer)
 
 
 class VersionListView(generics.ListAPIView):
@@ -109,7 +110,7 @@ class VerseWithPreviousAndNextView(generics.RetrieveAPIView):
         return Response(serializer.data)
     
 class VerseOfTheDayView(generics.RetrieveAPIView):
-    serializer_class = VerseVersionSerializer
+    serializer_class = VerseVersionQotdSerializer
     
     def get_queryset(self):
         today = date.today()
