@@ -96,6 +96,17 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'mysql': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'jesussaid2',
+        'USER': 'jesussaid',
+        'PASSWORD': 'Olalekan1!',
+        'HOST': 'spyder.startlogicmysql.com',
+        # 'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
