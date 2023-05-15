@@ -48,3 +48,10 @@ class VerseAttribute(models.Model):
     verse = models.ForeignKey(Verse, on_delete=models.CASCADE)
     spoken_by_jesus = models.BooleanField()
     quote_of_the_day = models.BooleanField()
+
+class QuoteOfTheDay(models.Model):
+    verse = models.ForeignKey(Verse, on_delete=models.CASCADE)
+    date = models.DateField()
+    
+    def __str__(self) -> str:
+        return f'{self.verse.chapter.book.name.title()} {self.verse.chapter.chapter}:{self.verse.verse} ({self.date})'

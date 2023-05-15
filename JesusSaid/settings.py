@@ -157,4 +157,5 @@ INTERNAL_IPS = [
 CORS_ALLOWED_ORIGINS = [
     'https://bibledbapp.herokuapp.com',
     "http://localhost:5174", # For dev version of frontend. Prod will be exported and served here. 
+    "http://localhost:5175", # For dev version of frontend. Prod will be exported and served here. 
 ]

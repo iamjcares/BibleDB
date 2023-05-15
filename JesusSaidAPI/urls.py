@@ -12,5 +12,5 @@ urlpatterns = [
     path('versions/<str:version_name>/books/<str:book_name>/chapters/<int:chapter_number>/verses/', views.VersesByChapterNumberView.as_view(), name='verses_by_chapter_number'),
 
     path('versions/<str:version_name>/books/<str:book_name>/chapters/<int:chapter_number>/verses/<int:verse>/', views.SingleVerseByNumberView.as_view(), name='single_verse_by_number'),
-    # path('versions/<str:version_name>/books/<str:book_name>/chapters/<int:chapter_number>/verses/<int:verse>/with-prev-next/', views.VerseWithPreviousAndNextView.as_view(), name='verse_with_prev_next'),
+    path('qotd/', views.VerseOfTheDayView.as_view(), name='qotd'),
 ]

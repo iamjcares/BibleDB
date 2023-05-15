@@ -1,8 +1,10 @@
+from datetime import date
+
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.response import Response
 
-from .models import Book, Chapter, Verse, VerseVersion, Version
+from .models import Book, Chapter, QuoteOfTheDay, Verse, VerseVersion, Version
 from .serializers import (BookSerializer, ChapterSerializer,
                           VerseVersionSerializer, VersionSerializer)
 
@@ -105,3 +107,26 @@ class VerseWithPreviousAndNextView(generics.RetrieveAPIView):
 
         serializer = self.get_serializer([previous_verse, current_verse, next_verse], many=True)
         return Response(serializer.data)
+    
+class VerseOfTheDayView(generics.RetrieveAPIView):
+    serializer_class = VerseVersionSerializer
+    
+    def get_queryset(self):
+        today = date.today()
+        print(today)
+        return QuoteOfTheDay.objects.filter(date=today)
+
+    def get_object(self):
+        today_quote = self.get_queryset().first()
+            
+        if not today_quote or today_quote.date != date.today():
+            random_verse = Verse.objects.filter(qotd__isnull=False).order_by('?').first()
+            if not random_verse:
+                random_verse = Verse.objects.order_by('?').first()
+            
+            today_quote = QuoteOfTheDay.objects.create(date=date.today(), verse=random_verse)
+            today_quote.save()
+        
+        verse_version = VerseVersion.objects.select_related('verse').filter(verse=today_quote.verse, version__slug='asv').first()
+        return verse_version
+    

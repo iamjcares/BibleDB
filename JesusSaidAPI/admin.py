@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Book, Chapter, Verse, VerseVersion, Version
+from .models import Book, Chapter, QuoteOfTheDay, Verse, VerseVersion, Version
 
 
 # Register your models here.
@@ -11,6 +11,15 @@ class VerseVersionAdmin(admin.ModelAdmin):
     def text_excerpt(self, obj):
         return obj.text[:100] + '...' if len(obj.text) > 100 else obj.text
     text_excerpt.short_description = 'Text Excerpt'
+    
+class QuoteOfTheDayAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'date')
+    search_fields = ('verse__chapter__book__name', 'verse__chapter__chapter', 'verse__verse', 'date')
+        
+    def text_excerpt(self, obj):
+        return obj.text[:100] + '...' if len(obj.text) > 100 else obj.text
+    text_excerpt.short_description = 'Text Excerpt'
+        
 
 
 admin.site.register(Book)
@@ -18,3 +27,5 @@ admin.site.register(Chapter)
 admin.site.register(Verse)
 admin.site.register(Version)
 admin.site.register(VerseVersion, VerseVersionAdmin)
+admin.site.register(QuoteOfTheDay, QuoteOfTheDayAdmin)
+
